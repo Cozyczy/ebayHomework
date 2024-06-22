@@ -57,7 +57,6 @@ public class UserController {
         }
     }
 
-
     @GetMapping("/user/getUs")
     public ResponseEntity<String> getUs(@RequestParam String input) {
         try {
@@ -65,20 +64,6 @@ public class UserController {
             return ResponseEntity.ok(userEntity.getRole());
         } catch (Exception e) {
             return ResponseEntity.status(500).body("get User Role error: " + e.getMessage());
-        }
-    }
-
-    @PostMapping("/admin/addU")
-    public ResponseEntity<String> addUsers(@RequestParam String input,@RequestParam String resource) {
-        try {
-            UserEntity userEntity = Base64Util.decodeUserRole(input);
-            if (!"admin".equals(userEntity.getRole())) {
-                return ResponseEntity.status(403).body("Only admins can add users.");
-            }
-            userService.saveAccess(userEntity,resource);
-            return ResponseEntity.ok("User added successfully.");
-        } catch (Exception e) {
-            return ResponseEntity.status(500).body("add User error: " + e.getMessage());
         }
     }
 
