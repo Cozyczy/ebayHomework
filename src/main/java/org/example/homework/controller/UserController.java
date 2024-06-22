@@ -56,4 +56,14 @@ public class UserController {
             return ResponseEntity.status(500).body("Add resource had an error: " + e.getMessage());
         }
     }
+
+    @GetMapping("/user/getUser")
+    public ResponseEntity<String> getUser(@RequestParam String input) {
+        try {
+            UserEntity userEntity = Base64Util.decodeUserRole(input);
+            return ResponseEntity.ok(userEntity.getRole());
+        } catch (Exception e) {
+            return ResponseEntity.status(500).body("get User Role error: " + e.getMessage());
+        }
+    }
 }
